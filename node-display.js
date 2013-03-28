@@ -15,6 +15,8 @@ var write = function(command, data) {
     var payload = iconv.convert(command + ":" + data);
 
     fs.appendFile(fifo_file, payload, function (err) {
+        if (err)
+            console.log("Error while writing to display: " + err);
     });
 };
 

@@ -3,7 +3,6 @@ var express = require('express')
   , display = require('./node-display');
 
 var app = module.exports = express();
-
 var port = 3000;
 
 // Configuration
@@ -25,11 +24,23 @@ app.configure('production', function(){
   app.use(express.errorHandler());
 });
 
+var postHandle = function(data) {
+    console.log(data);
+
+    display.scroll("auto");
+    display.text(data.text, true);
+}
+
 // Routes
 app.get('/', routes.index);
 
-display.scroll("left");
-display.text("FooBar!", true);
+// Post routes
+app.post('/', function(req,res){
+    if (req.body)
+        postHandle(req.body);
+
+    routes.index(req, res);
+});
 
 app.listen(port, function(){
   console.log("server running on http://localhost:" + port);
