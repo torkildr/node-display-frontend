@@ -1,6 +1,6 @@
 var express = require('express')
   , routes = require('./routes')
-  , display = require('./node-display');
+  , display = require('./display');
 
 var app = module.exports = express();
 var port = 3000;
@@ -27,8 +27,8 @@ app.configure('production', function(){
 var postHandle = function(data) {
     console.log(data);
 
-    display.scroll("auto");
-    display.text(data.text, true);
+    display.scroll(data.scrolling);
+    display.text(data.text, data.showTime == "yes");
 }
 
 // Routes

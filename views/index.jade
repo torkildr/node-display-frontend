@@ -21,7 +21,21 @@ html
               div(data-role='fieldcontain')
                 fieldset(data-role='controlgroup')
                   label(for='text') Text: 
-                     input(id='text',type='text',value='',placeholder='text to display',name='text')
+                     input(type='text',value='',placeholder='text to display',name='text')
+                  label(for='showTime') Show time: 
+                     input(type='radio',name='showTime',value='yes',checked=true)
+                     | yes
+                     input(type='radio',name='showTime',value='no',checked=false)
+                     | nope
+                  label(for='scroll') Scrolling: 
+                     input(type='radio',name='scrolling',value='auto',checked=true)
+                     | auto
+                     input(type='radio',name='scrolling',value='left',checked=false)
+                     | left
+                     input(type='radio',name='scrolling',value='right',checked=false)
+                     | right
+                     input(type='radio',name='scrolling',value='none',checked=false)
+                     | disabled
               div(data-role='fieldcontain')   
                 input(type='submit',value='Send text',data-transition='fade', data-theme='c')
 
