@@ -11,27 +11,30 @@ var write = function(command, data) {
     });
 };
 
-var scroll = function(mode) {
+exports.scroll = function(mode) {
     if (mode == "auto")
         write("scroll-auto");
     if (mode == "left")
         write("scroll-left");
     if (mode == "right")
         write("scroll-right");
+    if (mode == "none")
+        write("scroll-none");
 };
 
-var text = function(data, includeTime) {
+exports.text = function(data, includeTime) {
     if (includeTime == true)
         write("text-time", data);
     else
         write("text", data);
 };
 
-var time = function(format) {
+exports.time = function(format) {
     write("time", format);
-}
+};
 
-exports.scroll = scroll;
-exports.time = time;
-exports.text = text;
+exports.reset = function() {
+    exports.scroll("none");
+    exports.text("");
+};
 
