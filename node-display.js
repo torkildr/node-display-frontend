@@ -1,13 +1,20 @@
 var fs = require('fs');
+var iconv = new require('iconv').Iconv('utf-8', 'iso-8859-1');
 
 var fifo_file = "/tmp/matrix_display";
 
 var write = function(command, data) {
     console.log("Command: \"" + command + "\"");
-    if (data)
+    if (data) {
         console.log("Data: \"" + data + "\"");
+    } else {
+        data = "";
+    }
 
-    fs.appendFile(fifo_file, command + ":" + data, function (err) {
+    // our display expects stuff to be iso-8859-1
+    var payload = iconv.convert(command + ":" + data);
+
+    fs.appendFile(fifo_file, payload, function (err) {
     });
 };
 

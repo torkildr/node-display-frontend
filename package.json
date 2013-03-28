@@ -5,7 +5,7 @@
   "private": true,
   "main": "app.js",
   "scripts": {
-    "start": "nodemon --ext '.js|.css|.html|.jade'"
+    "start": "nodemon --ext '.js|.css'"
   },
   "repository": "git://github.com/torkildr/node-display-frontend.git",
   "author": {
@@ -13,8 +13,9 @@
     "email": "torkild@retvedt.no"
   },
   "dependencies": {
-    "express": ">= 0.0.1",
-    "jade": ">= 0.0.1"
+    "express": ">= 3.1.0",
+    "jade": ">= 0.28.2",
+    "iconv": ">= 2.0.4"
   },
   "license": "MIT",
   "devDependencies": {
