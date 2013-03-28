@@ -1,5 +1,6 @@
 var express = require('express')
-  , routes = require('./routes');
+  , routes = require('./routes')
+  , display = require('./node-display');
 
 var app = module.exports = express();
 
@@ -27,7 +28,10 @@ app.configure('production', function(){
 // Routes
 app.get('/', routes.index);
 
+display.scroll("left");
+display.text("FooBar!", true);
+
 app.listen(port, function(){
-  console.log("server running on port " + port);
+  console.log("server running on http://localhost:" + port);
 });
 
