@@ -18,33 +18,34 @@ html
           h1 Control panel
           div
             form(action='/', method='post')
-              div(data-role='fieldcontain')
-                fieldset(data-role='controlgroup')
-                  p Text
-                  label.text
-                     input(type='text',value='',placeholder='text to display',name='text')
-                  p Show time
-                  label.radio
-                     input(type='radio',name='showTime',value='yes',checked=true)
-                     | yes
-                  label.radio
-                     input(type='radio',name='showTime',value='no',checked=false)
-                     | nope
-                  p Scrolling
-                  label.radio
-                     input(type='radio',name='scrolling',value='auto',checked=true)
-                     | auto
-                  label.radio
-                     input(type='radio',name='scrolling',value='left',checked=false)
-                     | left
-                  label.radio
-                     input(type='radio',name='scrolling',value='right',checked=false)
-                     | right
-                  label.radio
-                     input(type='radio',name='scrolling',value='none',checked=false)
-                     | disabled
-              div(data-role='fieldcontain')
-                input(type='submit',value='Send text',data-transition='fade', data-theme='c')
+              p
+                | Text
+                label.text
+                  input(type='text',value='',placeholder='text to display')
+              p
+                | Show time
+                label
+                  input(type='radio',name='showTime',value='yes',checked=true)
+                  | yes
+                label
+                  input(type='radio',name='showTime',value='no')
+                  | nope
+              p
+                | Scrolling
+                label
+                  input(type='radio',name='scrolling',value='auto',checked=true)
+                  | auto
+                label
+                  input(type='radio',name='scrolling',value='left')
+                  | left
+                label
+                  input(type='radio',name='scrolling',value='right')
+                  | right
+                label
+                  input(type='radio',name='scrolling',value='none')
+                  | disabled
+              p
+                input(type='submit',value='Update',data-transition='fade', data-theme='c')
 
     script(src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js")
     script(src="/libs/bootstrap/js/bootstrap.min.js")
