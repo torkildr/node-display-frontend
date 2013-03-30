@@ -1,8 +1,12 @@
 exports.index = function(req, res){
-  res.render('index', { title: 'Main' })
+    res.render('index', { title: 'Main' });
 };
 
 exports.texts = function(req, res){
-  res.render('texts', { title: 'List of texts' })
+    var data = {
+        texts: ["foo", "bar"]
+    }
+
+    res.render('texts', { title: 'List of texts', data: data });
 };
 
