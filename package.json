@@ -5,7 +5,7 @@
   "private": true,
   "main": "app.js",
   "scripts": {
-    "start": "nodemon --ext '.js|.css'"
+    "start": "nodemon --ext '.js'"
   },
   "repository": "git://github.com/torkildr/node-display-frontend.git",
   "author": {
