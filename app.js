@@ -33,6 +33,7 @@ var postHandle = function(data) {
 
 // Routes
 app.get('/', routes.index);
+app.get('/texts', routes.texts);
 
 // Post routes
 app.post('/', function(req,res){
