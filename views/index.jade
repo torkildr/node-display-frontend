@@ -18,34 +18,31 @@ html
           h1 Control panel
           div
             form(action='/', method='post')
-              p
-                | Text
-                label.text
-                  input(type='text',value='',placeholder='text to display')
-              p
-                | Show time
+              p Text
                 label
-                  input(type='radio',name='showTime',value='yes',checked=true)
+                  input(type='text', value='', placeholder='text to display')
+              p Show time
+                label
+                  input(type='radio', name='showTime', value='yes', checked)
                   | yes
                 label
-                  input(type='radio',name='showTime',value='no')
+                  input(type='radio', name='showTime', value='no')
                   | nope
-              p
-                | Scrolling
+              p Scrolling
                 label
-                  input(type='radio',name='scrolling',value='auto',checked=true)
+                  input(type='radio', name='scrolling', value='auto', checked)
                   | auto
                 label
-                  input(type='radio',name='scrolling',value='left')
+                  input(type='radio', name='scrolling', value='left')
                   | left
                 label
-                  input(type='radio',name='scrolling',value='right')
+                  input(type='radio', name='scrolling', value='right')
                   | right
                 label
-                  input(type='radio',name='scrolling',value='none')
+                  input(type='radio', name='scrolling', value='none')
                   | disabled
               p
-                input(type='submit',value='Update',data-transition='fade', data-theme='c')
+                input(type='submit', value='Update')
 
     script(src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js")
     script(src="/libs/bootstrap/js/bootstrap.min.js")
