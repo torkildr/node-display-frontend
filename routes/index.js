@@ -1,4 +1,9 @@
+var post = require('./post');
+
 exports.index = function(req, res){
+    if (req.body)
+        post.handleIndex(req.body);
+
     res.render('index', { title: 'Main' });
 };
 

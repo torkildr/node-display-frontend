@@ -1,6 +1,6 @@
 var express = require('express')
-    , routes = require('./routes')
-    , display = require('./display');
+    , sqlite = require('sqlite3')
+    , routes = require('./routes');
 
 var app = module.exports = express();
 var port = 3000;
@@ -24,24 +24,10 @@ app.configure('production', function(){
     app.use(express.errorHandler());
 });
 
-var postHandle = function(data) {
-    console.log(data);
-
-    display.scroll(data.scrolling);
-    display.text(data.text, data.showTime == "yes");
-}
-
 // Routes
 app.get('/', routes.index);
+app.post('/', routes.index);
 app.get('/texts', routes.texts);
-
-// Post routes
-app.post('/', function(req,res){
-    if (req.body)
-        postHandle(req.body);
-
-    routes.index(req, res);
-});
 
 app.listen(port, function(){
     console.log("server running on http://localhost:" + port);

@@ -15,7 +15,8 @@
   "dependencies": {
     "express": ">= 3.1.0",
     "jade": ">= 0.28.2",
-    "iconv": ">= 2.0.4"
+    "iconv": ">= 2.0.4",
+    "sqlite3": ">= 2.1.7"
   },
   "license": "MIT",
   "devDependencies": {
