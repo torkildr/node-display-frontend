@@ -1,5 +1,5 @@
 var post = require('./post');
-var util = require('./util');
+var util = require('../util');
 var database = require('../database');
 
 exports.index = function(req, res){
@@ -8,10 +8,8 @@ exports.index = function(req, res){
     var date = new Date();
     var seconds = util.convertToSeconds(date.getHours(), date.getMinutes(), date.getSeconds());
 
-    // this will not work correctly for time spans like 23:00 -> 06:00. fix later..
-    db.all("SELECT * FROM texts WHERE startTime <= ? AND endTime >= ?", seconds, seconds, function(err, rows) {
-        console.log(rows);
-        res.render('texts', { title: 'Currently active texts', rows: rows });
+    database.getActiveTexts(seconds, function(err, rows) {
+        res.render('texts', { title: 'Currently active texts', rows: rows, util: util });
     });
 };
 
@@ -25,7 +23,7 @@ exports.texts = function(req, res){
     var db = database.db();
 
     db.all("SELECT * FROM texts", function(err, rows) {
-        res.render('texts', { title: 'List of texts', rows: rows });
+        res.render('texts', { title: 'List of texts', rows: rows, util: util });
     });
 };
 
@@ -36,7 +34,6 @@ exports.text = function(req, res){
         row.startString = util.convertToTime(row.startTime);
         row.endString = util.convertToTime(row.endTime);
 
-        console.log(row);
         res.render('text', { title: 'Text', row: row });
     });
 };

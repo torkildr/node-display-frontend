@@ -1,11 +1,11 @@
 var express = require('express')
     , sqlite3 = require('sqlite3')
     , routes = require('./routes')
+    , events = require('./events')
     , db = require('./database');
 
 var app = module.exports = express();
 var port = 3000;
-
 
 // Configuration
 app.configure(function(){
@@ -32,6 +32,9 @@ app.get('/submit', routes.submit);
 app.post('/submit', routes.submit);
 app.get('/texts', routes.texts);
 app.get('/texts/:id', routes.text);
+
+// Start dispatching events
+events.start();
 
 app.listen(port, function(){
     console.log("server running on http://localhost:" + port);

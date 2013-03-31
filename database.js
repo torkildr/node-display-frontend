@@ -23,3 +23,11 @@ exports.db = function() {
   return new sqlite3.Database(dbFile);
 };
 
+exports.getActiveTexts = function(s, callback) {
+  var db = new sqlite3.Database(dbFile);
+
+  // this will work correctly for time spans like 23:00 -> 06:00 as well
+  db.all("SELECT * FROM texts WHERE (startTime < endTime AND startTime <= ? AND endTime >= ?) OR " +
+         "(startTime > endTime AND startTime >= ? AND endTime >= ?)", s, s, s, s, callback);
+}
+

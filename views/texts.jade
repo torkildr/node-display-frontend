@@ -8,4 +8,5 @@ html
         for row in rows
           p
             a(href='/texts/' + row.id)= row.text
+            span.muted  (#{util.convertToTime(row.startTime)} to #{util.convertToTime(row.endTime)})
 
