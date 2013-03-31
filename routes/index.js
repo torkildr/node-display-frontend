@@ -15,3 +15,11 @@ exports.texts = function(req, res){
     });
 };
 
+exports.text = function(req, res){
+    var db = database.db();
+
+    db.get("SELECT * FROM texts WHERE id = ?", req.params.id, function(err, row) {
+        res.render('text', { title: 'Text', row: row });
+    });
+};
+

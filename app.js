@@ -30,6 +30,7 @@ app.configure('production', function(){
 app.get('/', routes.index);
 app.post('/', routes.index);
 app.get('/texts', routes.texts);
+app.get('/texts/:id', routes.text);
 
 app.listen(port, function(){
     console.log("server running on http://localhost:" + port);
