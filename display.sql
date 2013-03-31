@@ -3,7 +3,8 @@ CREATE TABLE texts (
   text TEXT,
   showTime INT,
   scrolling TEXT,
-  startTime TEXT,
-  endTime TEXT
+  -- start/end time in seconds after midnight (more easily filtered this way)
+  startTime INT,
+  endTime INT
 );
 
