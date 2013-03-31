@@ -1,9 +1,11 @@
 var express = require('express')
-    , sqlite = require('sqlite3')
-    , routes = require('./routes');
+    , sqlite3 = require('sqlite3')
+    , routes = require('./routes')
+    , db = require('./database.js');
 
 var app = module.exports = express();
 var port = 3000;
+
 
 // Configuration
 app.configure(function(){

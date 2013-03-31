@@ -8,7 +8,7 @@ html
         .hero-unit
           h1 Texts
           div
-            for text in data.texts
-              p= text
+            for row in rows
+              p= row.text
 
     include includes/scripts
