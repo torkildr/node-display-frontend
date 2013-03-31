@@ -3,36 +3,6 @@ html
   include includes/head
   body
     include includes/navbar
-    .container
-      .row
-        .hero-unit
-          h1 Control panel
-          div
-            form(action='/', method='post')
-              p Text
-                label
-                  input(type='text', name='text', placeholder='text to display')
-              p Show time
-                label
-                  input(type='radio', name='showTime', value='yes', checked)
-                  | yes
-                label
-                  input(type='radio', name='showTime', value='no')
-                  | nope
-              p Scrolling
-                label
-                  input(type='radio', name='scrolling', value='auto', checked)
-                  | auto
-                label
-                  input(type='radio', name='scrolling', value='left')
-                  | left
-                label
-                  input(type='radio', name='scrolling', value='right')
-                  | right
-                label
-                  input(type='radio', name='scrolling', value='none')
-                  | disabled
-              p
-                input(type='submit', value='Update')
-
-    include includes/scripts
+    include includes/container
+     p
+       | Stuff goes here

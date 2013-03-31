@@ -2,9 +2,13 @@ var post = require('./post');
 var database = require('../database');
 
 exports.index = function(req, res){
-    post.handleIndex(req.body);
-
     res.render('index', { title: 'Main' });
+};
+
+exports.submit = function(req, res){
+    post.submitText(req.body);
+
+    res.render('submit', { title: 'Submit text' });
 };
 
 exports.texts = function(req, res){

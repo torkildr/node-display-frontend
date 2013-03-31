@@ -1,7 +1,7 @@
 var express = require('express')
     , sqlite3 = require('sqlite3')
     , routes = require('./routes')
-    , db = require('./database.js');
+    , db = require('./database');
 
 var app = module.exports = express();
 var port = 3000;
@@ -28,7 +28,8 @@ app.configure('production', function(){
 
 // Routes
 app.get('/', routes.index);
-app.post('/', routes.index);
+app.get('/submit', routes.submit);
+app.post('/submit', routes.submit);
 app.get('/texts', routes.texts);
 app.get('/texts/:id', routes.text);
 

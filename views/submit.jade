@@ -1,0 +1,50 @@
+!!!
+html
+  include includes/head
+  body
+    include includes/navbar
+    include includes/container
+      div
+        form(action='/', method='post')
+          p Text
+            label
+              input(type='text', name='text', placeholder='text to display')
+          p Show time
+            label
+              input(type='radio', name='showTime', value='yes', checked)
+              |  yes
+            label
+              input(type='radio', name='showTime', value='no')
+              |  nope
+          p Scrolling
+            label
+              input(type='radio', name='scrolling', value='auto', checked)
+              |  auto
+            label
+              input(type='radio', name='scrolling', value='left')
+              |  left
+            label
+              input(type='radio', name='scrolling', value='right')
+              |  right
+            label
+              input(type='radio', name='scrolling', value='none')
+              |  disabled
+          p Starts
+            div.input-append.bootstrap-timepicker
+              input(type='text', class='timepicker', name='startTime').input-small
+              span.add-on
+                i.icon-time
+          p Ends
+            div.input-append.bootstrap-timepicker
+              input(type='text', class='timepicker', name='endTime').input-small
+              span.add-on
+                i.icon-time
+          p
+            input(type='submit', value='Update')
+
+          script
+            $('.timepicker').timepicker({
+              showMeridian: false,
+              showSeconds: true
+            });
+

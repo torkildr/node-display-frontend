@@ -3,16 +3,20 @@ html
   include includes/head
   body
     include includes/navbar
-    .container
-      .row
-        .hero-unit
-          h1 Text 
-            p
-              h3 Id
-              =row.id
-            p
-              h3 Text
-              =row.text
-
-    include includes/scripts
+    include includes/container
+      p
+        h3 Id
+        =row.id
+      p
+        h3 Text
+        =row.text
+      p
+        h3 Show time
+        =row.showTime
+      p
+        h3 Scrolling
+        =row.scrolling
+      p
+        h3 Time
+        From #{row.startTime} to #{row.endTime}
 

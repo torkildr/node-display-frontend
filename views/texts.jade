@@ -3,13 +3,9 @@ html
   include includes/head
   body
     include includes/navbar
-    .container
-      .row
-        .hero-unit
-          h1 Texts
-          div
-            for row in rows
-              p
-                a(href='/texts/' + row.id)= row.text
+    include includes/container
+      div
+        for row in rows
+          p
+            a(href='/texts/' + row.id)= row.text
 
-    include includes/scripts
