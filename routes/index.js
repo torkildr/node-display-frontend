@@ -38,7 +38,7 @@ exports.delete = function(req, res) {
 
 exports.submit = function(req, res){
     post.submitText(req, function() {
-        res.render('submit', renderContext('Submit text', req, { row: {} }));
+        res.render('submit', renderContext('Create new text', req, { row: {} }));
     });
 };
 
