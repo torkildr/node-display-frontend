@@ -64,9 +64,9 @@ html
 
           div
             br
-            input(type='submit', name='edit', value=(edit) ? 'Update' : 'Add text').btn.btn-inverse.btn-large
+            input(type='submit', name='edit', value=(edit) ? 'Update' : 'Add text').btn.btn-inverse
             if edit
-              input(type='button', value='Delete', data-id=row.id).btn.btn-danger.btn-large.confirm-delete
+              input(type='button', value='Delete', data-id=row.id).btn.btn-danger.confirm-delete
 
           include includes/delete
 

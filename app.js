@@ -41,7 +41,7 @@ app.get('/foo', function(req, res) {
 });
 
 // Start dispatching events
-events.start();
+//events.start();
 
 app.listen(port, function(){
     console.log("server running on http://localhost:" + port);
