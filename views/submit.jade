@@ -6,53 +6,63 @@ html
     include includes/container
       div
         form(action='#{req.url}', method='post')
+          input(type='hidden', name='rowId', value='#{util.safeValue(row.id, 0)}')
+          - var edit = (typeof(row.id) !== 'undefined') ? true : false
           div
             p
               | Name
             label
-              input(type='text', name='name', placeholder='name/description')
+              input(type='text', name='name', placeholder='name/description', value='#{util.safeValue(row.name, '')}')
           div
             p
               | Payload
+            - var dataType = (row.url && row.url.length) ? 'URL' : 'Text'
+            - var text = (dataType == 'URL') ? row.url : ((row.text) ? row.text : '')
             div(data-toggle='buttons-radio').btn-group
-              input(type='hidden', name='dataType', value='Text', id='hiddenType')
-              button(type='button', id='btnText').btn.active Text
+              input(type='hidden', name='dataType', value='#{dataType}', id='hiddenType')
+              button(type='button', id='btnText').btn Text
               button(type='button', id='btnUrl').btn URL
               label
-                input(type='text', name='text', placeholder='Text goes here', id='dataType')
+                input(type='text', name='text', placeholder='#{dataType} goes here', id='dataType', value='#{text}')
               label
-                input(type='checkbox', name='showTime', value='yes', checked)
-                |  Inlude time
+                input(type='checkbox', name='showTime', value='yes', checked=(util.safeValue(row.showTime, true)) ? true : false)
+                |  Include time
           div
             p
               | Scrolling
             select(name='scrolling')
-              option(value='auto') Auto
-              option(value='left') Left
-              option(value='right') Right
-              option(value='none') Disabled
+              option(value='auto', selected=(row.scrolling == 'auto')) Auto
+              option(value='left', selected=(row.scrolling == 'left')) Left
+              option(value='right', selected=(row.scrolling == 'right')) Right
+              option(value='none', selected=(row.scrolling == 'none')) Disabled
           div
             p
               | Active time span
             div.input-append.bootstrap-timepicker
-              input(type='text', class='timepicker', name='startTime').input-small
+              - var startTime = (row.startTime) ? util.convertToTime(row.startTime) : '';
+              input(type='text', class='timepicker', name='startTime', value=startTime).input-small
               span.add-on
                 i.icon-time
             div.input-append.bootstrap-timepicker
-              input(type='text', class='timepicker', name='endTime').input-small
+              - var endTime = (row.endTime) ? util.convertToTime(row.endTime) : '';
+              input(type='text', class='timepicker', name='endTime', value=endTime).input-small
               span.add-on
                 i.icon-time
             div
               - var items = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su']
+              - var weekdays = util.bitArray(row.weekday, 7)
               - for (var i = 0; i < items.length; ++i) {
                 label.inline.checkbox
-                  input(type='checkbox', name='day[#{i}]', value='true', checked)
+                  - var selected = (!edit || weekdays[i]) ? true : false
+                  input(type='checkbox', name='day[#{i}]', value='true', checked=selected)
                   | #{items[i]}
               - }
 
           div
             br
-            input(type='submit', value='Update').btn.btn-primary.btn-large
+            input(type='submit', name='edit', value=(edit) ? 'Update' : 'Add text').btn.btn-inverse.btn-large
+            if edit
+              input(type='button', name='delete', value='Delete').btn.btn-danger.btn-large
 
           script
             $('.timepicker').timepicker({
@@ -64,4 +74,9 @@ html
               $('#hiddenType').attr('value', $(this).text());
               $('#dataType').attr('placeholder', $(this).text() + ' goes here');
             });
-
+            $(function() {
+              if ($('#hiddenType').attr('value') == "URL")
+                $('#btnUrl').addClass('active');
+              else
+                $('#btnText').addClass('active');
+            });

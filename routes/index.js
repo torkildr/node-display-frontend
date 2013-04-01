@@ -18,18 +18,17 @@ exports.texts = function(req, res){
 };
 
 exports.edit = function(req, res){
-    database.db().get("SELECT * FROM texts WHERE id = ?", req.params.id, function(err, row) {
-        res.render('submit', renderContext('Edit text', req, { row: row }));
+    post.updateText(req, function() {
+        database.db().get("SELECT * FROM texts WHERE id = ?", req.params.id, function(err, row) {
+            res.render('submit', renderContext('Edit text', req, { row: row }));
+        });
     });
 };
 
 exports.submit = function(req, res){
-    var postResult = post.submitText(req.body);
-
-    if (postResult)
-        req.postResult = postResult;
-
-    res.render('submit', renderContext('Submit text', req));
+    post.submitText(req, function() {
+        res.render('submit', renderContext('Submit text', req, { row: {} }));
+    });
 };
 
 function renderContext(title, req, props) {

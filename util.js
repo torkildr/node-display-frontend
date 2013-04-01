@@ -41,3 +41,22 @@ exports.bitValues = function(array) {
     return val;
 }
 
+exports.bitArray = function(mask, bits) {
+    var res = [];
+
+    for (var i = 0; i < bits; i++) {
+        res.push((mask & (1 << i)) != 0 ? true : false);
+    }
+
+    return res;
+}
+
+exports.safeValue = function(value, defaultValue) {
+    var result = defaultValue;
+
+    if (typeof(value) !== 'undefined')
+        result = value;
+
+    return result;
+}
+

@@ -19,9 +19,9 @@ html
               td
                 span.muted  (#{util.convertToTime(row.startTime)} to #{util.convertToTime(row.endTime)})
               td #{util.trimText(row.text, 20)}
-              if !row.dataUrl
+              if !row.url
                 td= null
               else
                 td
-                  a(href='#{row.dataUrl}') #{util.trimText(row.dataUrl, 20)}
+                  a(href='#{row.url}') #{util.trimText(row.url, 20)}
 
