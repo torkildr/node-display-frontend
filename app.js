@@ -33,6 +33,7 @@ app.get('/submit', routes.submit);
 app.post('/submit', routes.submit);
 app.get('/edit/:id', routes.edit);
 app.post('/edit/:id', routes.edit);
+app.get('/delete/:id', routes.delete);
 
 // delete this
 app.get('/foo', function(req, res) {

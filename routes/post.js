@@ -34,7 +34,7 @@ exports.updateText = function(req, callback) {
                               "name=?, url=?, nextUpdate=?, updateInterval=?, text=?, showTime=?, scrolling=?, startTime=?, endTime=?, weekday=? " +
                               "WHERE id = ?");
 
-        req.postResult = "Text \"" + data.name + "\" updated successfully";
+        req.alert = { text: 'Text  "'+ data.name + '" updated successfully', class: 'alert-success' };
 
         stmt.run(prep.name, prep.url, 0, prep.updateInterval, prep.text, prep.showTime, prep.scrolling, prep.startTime, prep.endTime, prep.weekday, data.rowId,
                 callback);
@@ -54,7 +54,7 @@ exports.submitText = function(req, callback) {
         var stmt = db.prepare("INSERT INTO texts (name, url, nextUpdate, updateInterval, text, showTime, scrolling, startTime, endTime, weekday)" +
                               " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-        req.postResult = "Text \"" + data.name + "\" added successfully";
+        req.alert = { text: 'Text  "'+ data.name + '" added successfully', class: 'alert-success' };
 
         stmt.run(prep.name, prep.url, 0, prep.updateInterval, prep.text, prep.showTime, prep.scrolling, prep.startTime, prep.endTime, prep.weekday,
                 callback);

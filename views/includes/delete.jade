@@ -1,0 +1,25 @@
+div(id="modal-from-dom").modal.hide.fade
+  div.modal-header
+    a(data-dismiss='modal').close &times;
+    h3 Delete text
+  div.modal-body
+    | You are about to delete a given text, this will be very permanent.
+    br
+    br
+    | Do you want to proceed?
+  div.modal-footer
+    a(href='/delete/').btn.btn-danger Yes
+    a(data-dismiss='modal').btn.btn-inverse No
+script
+  $('#modal-from-dom').bind('show', function() {
+      var id = $(this).data('id'),
+          removeBtn = $(this).find('.btn-danger'),
+          href = removeBtn.attr('href');
+      removeBtn.attr('href', '/delete/' + id);
+  });
+  $('.confirm-delete').click(function(e) {
+      e.preventDefault();
+      var id = $(this).data('id');
+      $('#modal-from-dom').data('id', id).modal('show');
+  });
+

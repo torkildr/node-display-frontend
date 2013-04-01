@@ -62,7 +62,9 @@ html
             br
             input(type='submit', name='edit', value=(edit) ? 'Update' : 'Add text').btn.btn-inverse.btn-large
             if edit
-              input(type='button', name='delete', value='Delete').btn.btn-danger.btn-large
+              input(type='button', value='Delete', data-id=row.id).btn.btn-danger.btn-large.confirm-delete
+
+          include includes/delete
 
           script
             $('.timepicker').timepicker({

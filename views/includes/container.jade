@@ -2,11 +2,11 @@
   .row
     .hero-unit
       div
-        - if (req.postResult) {
-            div.alert.alert-success
+        - if (req.alert) {
+            div(class=req.alert.class).alert
               button(type='button', data-dismiss='alert').close
                 &times;
-              h4= req.postResult
+              h4= req.alert.text
         - }
       div
         h2= title
