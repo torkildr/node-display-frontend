@@ -24,7 +24,10 @@ exports.edit = function(req, res){
 };
 
 exports.submit = function(req, res){
-    post.submitText(req.body);
+    var postResult = post.submitText(req.body);
+
+    if (postResult)
+        req.postResult = postResult;
 
     res.render('submit', renderContext('Submit text', req));
 };

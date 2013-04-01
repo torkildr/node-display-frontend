@@ -3,6 +3,7 @@ CREATE TABLE texts (
   name TEXT,
   dataUrl TEXT,
   nextUpdate INT,
+  updateInterval INT,
   text TEXT,
   showTime INT,
   scrolling TEXT,

@@ -1,4 +1,13 @@
 .container
   .row
     .hero-unit
-      h2= title
+      div
+        - if (req.postResult) {
+            div.alert.alert-success
+              button(type='button', data-dismiss='alert').close
+                &times;
+              h4= req.postResult
+        - }
+      div
+        h2= title
+

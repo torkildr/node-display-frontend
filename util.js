@@ -28,3 +28,16 @@ exports.trimText = function(text, length) {
         return trimmed;
 };
 
+exports.bitValues = function(array) {
+    var val = 0;
+
+    if (array) {
+        for(var i = 0; i < array.length; i++) {
+            if (array[i])
+                val |= 1 << i;
+        }
+    }
+
+    return val;
+}
+
