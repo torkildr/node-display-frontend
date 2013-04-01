@@ -3,38 +3,39 @@ var util = require('../util');
 var database = require('../database');
 
 exports.index = function(req, res){
-    var db = database.db();
-
     var date = new Date();
     var seconds = util.convertToSeconds(date.getHours(), date.getMinutes(), date.getSeconds());
 
     database.getActiveTexts(seconds, function(err, rows) {
-        res.render('texts', { title: 'Currently active texts', rows: rows, util: util });
+        res.render('texts', renderContext('Currently active texts', req, { rows: rows }));
+    });
+};
+
+exports.texts = function(req, res){
+    database.db().all("SELECT * FROM texts", function(err, rows) {
+        res.render('texts', renderContext('List of texts', req, { rows: rows }));
+    });
+};
+
+exports.text = function(req, res){
+    database.db().get("SELECT * FROM texts WHERE id = ?", req.params.id, function(err, row) {
+        res.render('text', renderContext('Text info', req, { row: row }));
     });
 };
 
 exports.submit = function(req, res){
     post.submitText(req.body);
 
-    res.render('submit', { title: 'Submit text', url: req.url });
+    res.render('submit', renderContext('Submit text', req));
 };
 
-exports.texts = function(req, res){
-    var db = database.db();
+function renderContext(title, req, props) {
+    var context = { title: title, util: util, req: req };
 
-    db.all("SELECT * FROM texts", function(err, rows) {
-        res.render('texts', { title: 'List of texts', rows: rows, util: util });
-    });
-};
+    for (prop in props) {
+        context[prop] = props[prop];
+    }
 
-exports.text = function(req, res){
-    var db = database.db();
-
-    db.get("SELECT * FROM texts WHERE id = ?", req.params.id, function(err, row) {
-        row.startString = util.convertToTime(row.startTime);
-        row.endString = util.convertToTime(row.endTime);
-
-        res.render('text', { title: 'Text', row: row });
-    });
-};
+    return context;
+}
 

@@ -17,7 +17,6 @@ exports.submitText = function(data) {
         );
 
         stmt.finalize();
-
         db.close();
     }
 };
