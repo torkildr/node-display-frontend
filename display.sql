@@ -2,7 +2,7 @@ CREATE TABLE texts (
   id INTEGER PRIMARY KEY,
   name TEXT,
   url TEXT DEFAULT "",
-  nextUpdate INT DEFAULT 0,
+  updated INT DEFAULT 0,
   updateInterval INT DEFAULT 0,
   text TEXT,
   showTime INT,
@@ -29,6 +29,6 @@ VALUES ('Evening', 'evening', 1, 'auto', (17*60*60)+(0*60)+0,(22*60*60)+(59*60)+
 INSERT INTO texts (name, text, showTime, scrolling, startTime, endTime, weekday)
 VALUES ('Night time', 'all night long', 1, 'auto', (22*60*60)+(0*60)+0,(07*60*60)+(59*60)+59, (1<<7)-1);
 
-INSERT INTO texts (name, text, url, nextUpdate, showTime, scrolling, startTime, endTime, weekday)
+INSERT INTO texts (name, text, url, updated, showTime, scrolling, startTime, endTime, weekday)
 VALUES ('Update from URL', 'not updated', 'http://localhost:3000/foo', 0, 1, 'auto', (0*60*60)+(0*60)+0,(23*60*60)+(59*60)+59, (1<<7)-1);
 

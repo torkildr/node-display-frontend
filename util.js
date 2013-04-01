@@ -39,7 +39,7 @@ exports.bitValues = function(array) {
     }
 
     return val;
-}
+};
 
 exports.bitArray = function(mask, bits) {
     var res = [];
@@ -49,7 +49,7 @@ exports.bitArray = function(mask, bits) {
     }
 
     return res;
-}
+};
 
 exports.safeValue = function(value, defaultValue) {
     var result = defaultValue;
@@ -58,5 +58,9 @@ exports.safeValue = function(value, defaultValue) {
         result = value;
 
     return result;
-}
+};
+
+exports.getTime = function() {
+    return parseInt((new Date()).getTime() / 1000);
+};
 

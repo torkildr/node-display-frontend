@@ -31,7 +31,7 @@ exports.updateText = function(req, callback) {
         var db = database.db();
         var prep = prepareText(data);
         var stmt = db.prepare("UPDATE texts SET " +
-                              "name=?, url=?, nextUpdate=?, updateInterval=?, text=?, showTime=?, scrolling=?, startTime=?, endTime=?, weekday=? " +
+                              "name=?, url=?, updated=?, updateInterval=?, text=?, showTime=?, scrolling=?, startTime=?, endTime=?, weekday=? " +
                               "WHERE id = ?");
 
         req.alert = { text: 'Text  "'+ data.name + '" updated successfully', class: 'alert-success' };
@@ -51,7 +51,7 @@ exports.submitText = function(req, callback) {
     if (data.name) {
         var db = database.db();
         var prep = prepareText(data);
-        var stmt = db.prepare("INSERT INTO texts (name, url, nextUpdate, updateInterval, text, showTime, scrolling, startTime, endTime, weekday)" +
+        var stmt = db.prepare("INSERT INTO texts (name, url, updated, updateInterval, text, showTime, scrolling, startTime, endTime, weekday)" +
                               " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
         req.alert = { text: 'Text  "'+ data.name + '" added successfully', class: 'alert-success' };
