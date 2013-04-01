@@ -24,6 +24,10 @@ html
               button(type='button', id='btnUrl').btn URL
               label
                 input(type='text', name='text', placeholder='#{dataType} goes here', id='dataType', value='#{text}')
+              label(id='lblInterval')
+                | Update interval 
+                - var interval = util.safeValue(row.updateInterval, 0)
+                input(type='text', name='interval', placeholder='seconds', value=interval).span1
               label
                 input(type='checkbox', name='showTime', value='yes', checked=(util.safeValue(row.showTime, true)) ? true : false)
                 |  Include time
@@ -75,10 +79,19 @@ html
             $('.btn-group > button').click(function(){
               $('#hiddenType').attr('value', $(this).text());
               $('#dataType').attr('placeholder', $(this).text() + ' goes here');
+              if ($(this).text() == 'URL')
+                $('#lblInterval').show();
+              else
+                $('#lblInterval').hide();
+
             });
             $(function() {
-              if ($('#hiddenType').attr('value') == "URL")
+              if ($('#hiddenType').attr('value') == "URL") {
                 $('#btnUrl').addClass('active');
-              else
+                $('#lblInterval').show();
+              } else {
                 $('#btnText').addClass('active');
+                $('#lblInterval').hide();
+              }
             });
+
