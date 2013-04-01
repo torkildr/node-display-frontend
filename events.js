@@ -22,6 +22,11 @@ var dispatcher = function() {
     var seconds = util.convertToSeconds(date.getHours(), date.getMinutes(), date.getSeconds());
 
     database.getActiveTexts(seconds, function(err, rows) {
+        if (!rows) {
+            console.log("No data");
+            return;
+        }
+
         var texts = rows.map(function (row) { return row.text; });
         var formattedText = texts.join(" | ");
         console.log("Active texts: " + texts.length);

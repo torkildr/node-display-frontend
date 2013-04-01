@@ -4,7 +4,7 @@ var database = require('../database');
 exports.submitText = function(data) {
     if (data.text) {
         console.log(data);
-
+        return;
         var db = database.db();
         var stmt = db.prepare('INSERT INTO texts (text, showTime, scrolling, startTime, endTime) VALUES (?, ?, ?, ?, ?)');
 

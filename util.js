@@ -1,7 +1,7 @@
 function pad(n, width, z) {
-  z = z || '0';
-  n = n + '';
-  return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+    z = z || '0';
+    n = n + '';
+    return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 }
 
 exports.convertToSeconds = function(hour, minute, second) {
@@ -14,5 +14,17 @@ exports.convertToTime = function(seconds) {
     var second = seconds % 60;
 
     return pad(hour, 2) + ":" + pad(minute, 2) + ":" + pad(second, 2);
+};
+
+exports.trimText = function(text, length) {
+    if (!text)
+        return text;
+
+    var trimmed = text.substring(0, length);
+
+    if (text.length > trimmed.length)
+        return trimmed + "...";
+    else
+        return trimmed;
 };
 

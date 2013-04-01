@@ -28,13 +28,19 @@ app.configure('production', function(){
 
 // Routes
 app.get('/', routes.index);
+app.get('/texts', routes.texts);
 app.get('/submit', routes.submit);
 app.post('/submit', routes.submit);
-app.get('/texts', routes.texts);
-app.get('/texts/:id', routes.text);
+app.get('/edit/:id', routes.edit);
+app.post('/edit/:id', routes.edit);
+
+// delete this
+app.get('/foo', function(req, res) {
+    res.send(new Date().toString());
+});
 
 // Start dispatching events
-events.start();
+//events.start();
 
 app.listen(port, function(){
     console.log("server running on http://localhost:" + port);

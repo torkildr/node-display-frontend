@@ -28,6 +28,7 @@ exports.getActiveTexts = function(s, callback) {
 
   // this will work correctly for time spans like 23:00 -> 06:00 as well
   db.all("SELECT * FROM texts WHERE (startTime < endTime AND startTime <= ? AND endTime >= ?) OR " +
-         "(startTime > endTime AND startTime >= ? AND endTime >= ?)", s, s, s, s, callback);
+         "(startTime > endTime AND startTime >= ? AND endTime >= ?)" +
+         "ORDER BY startTime ASC, endTime ASC, name ASC", s, s, s, s, callback);
 }
 

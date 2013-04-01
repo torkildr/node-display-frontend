@@ -5,8 +5,23 @@ html
     include includes/navbar
     include includes/container
       div
-        for row in rows
-          p
-            a(href='/texts/' + row.id)= row.text
-            span.muted  (#{util.convertToTime(row.startTime)} to #{util.convertToTime(row.endTime)})
+        table.table.table-condensed
+          thead
+            tr
+              th Name
+              th Active time
+              th Text
+              th URL
+          for row in rows
+            tr
+              td
+                a(href='/edit/' + row.id)= row.name
+              td
+                span.muted  (#{util.convertToTime(row.startTime)} to #{util.convertToTime(row.endTime)})
+              td #{util.trimText(row.text, 20)}
+              if !row.dataUrl
+                td= null
+              else
+                td
+                  a(href='#{row.dataUrl}') #{util.trimText(row.dataUrl, 20)}
 

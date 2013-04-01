@@ -6,45 +6,62 @@ html
     include includes/container
       div
         form(action='#{req.url}', method='post')
-          p Text
+          div
+            p
+              | Name
             label
-              input(type='text', name='text', placeholder='text to display')
-          p Show time
-            label
-              input(type='radio', name='showTime', value='yes', checked)
-              |  yes
-            label
-              input(type='radio', name='showTime', value='no')
-              |  nope
-          p Scrolling
-            label
-              input(type='radio', name='scrolling', value='auto', checked)
-              |  auto
-            label
-              input(type='radio', name='scrolling', value='left')
-              |  left
-            label
-              input(type='radio', name='scrolling', value='right')
-              |  right
-            label
-              input(type='radio', name='scrolling', value='none')
-              |  disabled
-          p Starts
+              input(type='text', name='name', placeholder='name/description')
+          div
+            p
+              | Payload
+            div(data-toggle='buttons-radio').btn-group
+              input(type='hidden', name='dataType', value='Text', id='hiddenType')
+              button(type='button', id='btnText').btn.active Text
+              button(type='button', id='btnUrl').btn URL
+              label
+                input(type='text', name='text', placeholder='Text goes here', id='dataType')
+              label
+                input(type='checkbox', name='showTime', value='yes', checked)
+                |  Inlude time
+          div
+            p
+              | Scrolling
+            select(name='scrolling')
+              option(value='auto') Auto
+              option(value='left') Left
+              option(value='right') Right
+              option(value='none') Disabled
+          div
+            p
+              | Active time span
             div.input-append.bootstrap-timepicker
               input(type='text', class='timepicker', name='startTime').input-small
               span.add-on
                 i.icon-time
-          p Ends
             div.input-append.bootstrap-timepicker
               input(type='text', class='timepicker', name='endTime').input-small
               span.add-on
                 i.icon-time
-          p
-            input(type='submit', value='Update')
+            div
+              - var items = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su']
+              - for (var i = 0; i < items.length; ++i) {
+                label.inline.checkbox
+                  input(type='checkbox', name='day[#{i}]', value='true', checked)
+                  | #{items[i]}
+              - }
+
+          div
+            br
+            input(type='submit', value='Update').btn.btn-primary.btn-large
 
           script
             $('.timepicker').timepicker({
               showMeridian: false,
               showSeconds: true
+            });
+          script
+            $('.btn-group > button').click(function(){
+              $('#hiddenType').attr('value', $(this).text());
+              $('#dataType').attr('placeholder', $(this).text() + ' goes here');
             });
 

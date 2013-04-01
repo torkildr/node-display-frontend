@@ -1,13 +1,13 @@
 .navbar.navbar-fixed-top
   .navbar-inner
     .container
-      .brand Display-o-Matic 3000
+      a(href='/').brand Display-o-Matic 3000
       div.nav-collapse
         ul.nav
-          li(class = (req.url == '/') ? 'active' : '')
+          li(class=(req.url == '/') ? 'active' : '')
             a(href='/') Active texts
-          li(class = (req.url == '/submit') ? 'active' : '')
+          li(class=(req.url == '/submit') ? 'active' : '')
             a(href='/submit') Submit new text
-          li(class = (req.url == '/texts') ? 'active' : '')
+          li(class=(req.url == '/texts') ? 'active' : '')
             a(href='/texts') All texts
 

@@ -12,14 +12,14 @@ exports.index = function(req, res){
 };
 
 exports.texts = function(req, res){
-    database.db().all("SELECT * FROM texts", function(err, rows) {
+    database.db().all("SELECT * FROM texts ORDER BY startTime ASC, endTime ASC, name ASC", function(err, rows) {
         res.render('texts', renderContext('List of texts', req, { rows: rows }));
     });
 };
 
-exports.text = function(req, res){
+exports.edit = function(req, res){
     database.db().get("SELECT * FROM texts WHERE id = ?", req.params.id, function(err, row) {
-        res.render('text', renderContext('Text info', req, { row: row }));
+        res.render('submit', renderContext('Edit text', req, { row: row }));
     });
 };
 
