@@ -12,7 +12,9 @@ exports.index = function(req, res) {
 };
 
 exports.texts = function(req, res) {
-    database.db().all("SELECT * FROM texts ORDER BY startTime ASC, endTime ASC, name ASC", function(err, rows) {
+    var db = database.db();
+    db.all("SELECT * FROM texts ORDER BY startTime ASC, endTime ASC, name ASC", function(err, rows) {
+        db.close();
         res.render('texts', renderContext('List of texts', req, { rows: rows }));
     });
 };
@@ -21,7 +23,9 @@ exports.edit = function(req, res) {
     console.log("Edit id " + req.params.id);
 
     post.updateText(req, function() {
-        database.db().get("SELECT * FROM texts WHERE id = ?", req.params.id, function(err, row) {
+        var db = database.db();
+        db.get("SELECT * FROM texts WHERE id = ?", req.params.id, function(err, row) {
+            db.close();
             res.render('submit', renderContext('Edit text', req, { row: row }));
         });
     });
@@ -30,7 +34,9 @@ exports.edit = function(req, res) {
 exports.delete = function(req, res) {
     console.log("Delete id " + req.params.id);
 
-    database.db().get("DELETE FROM texts WHERE id = ?", req.params.id, function(err, row) {
+    var db = database.db();
+    db.get("DELETE FROM texts WHERE id = ?", req.params.id, function(err, row) {
+        db.close();
         req.alert = { text: 'Text deleted successfully', class: 'alert-success' };
         exports.texts(req, res);
     });

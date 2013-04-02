@@ -48,9 +48,7 @@ var dispatcher = function() {
     var date = new Date();
     var seconds = util.convertToSeconds(date.getHours(), date.getMinutes(), date.getSeconds());
 
-    console.log("Getting");
     database.getActiveTexts(seconds, function(err, rows) {
-        console.log("Got");
         if (!rows) {
             console.log("No data");
             return;
@@ -77,7 +75,6 @@ var start = function() {
     stop();
 
     id = setInterval(dispatcher, interval);
-    dispatcher();
 }
 
 exports.stop = stop;

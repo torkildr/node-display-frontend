@@ -29,17 +29,19 @@ exports.updateText = function(req, callback) {
 
     if (data.rowId) {
         var db = database.db();
-        var prep = prepareText(data);
+        var p = prepareText(data);
         var stmt = db.prepare("UPDATE texts SET " +
                               "name=?, url=?, updated=?, updateInterval=?, text=?, showTime=?, scrolling=?, startTime=?, endTime=?, weekday=? " +
                               "WHERE id = ?");
 
         req.alert = { text: 'Text  "'+ data.name + '" updated successfully', class: 'alert-success' };
 
-        stmt.run(prep.name, prep.url, 0, prep.updateInterval, prep.text, prep.showTime, prep.scrolling, prep.startTime, prep.endTime, prep.weekday, data.rowId,
-                callback);
-        stmt.finalize();
-        db.close();
+        stmt.run(p.name, p.url, 0, p.updateInterval, p.text, p.showTime, p.scrolling, p.startTime, p.endTime, p.weekday, data.rowId, function() {
+            stmt.finalize(function() {
+                db.close();
+            });
+            callback();
+        });
     } else {
         callback();
     }
@@ -50,16 +52,18 @@ exports.submitText = function(req, callback) {
 
     if (data.name) {
         var db = database.db();
-        var prep = prepareText(data);
+        var p = prepareText(data);
         var stmt = db.prepare("INSERT INTO texts (name, url, updated, updateInterval, text, showTime, scrolling, startTime, endTime, weekday)" +
                               " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
         req.alert = { text: 'Text  "'+ data.name + '" added successfully', class: 'alert-success' };
 
-        stmt.run(prep.name, prep.url, 0, prep.updateInterval, prep.text, prep.showTime, prep.scrolling, prep.startTime, prep.endTime, prep.weekday,
-                callback);
-        stmt.finalize();
-        db.close();
+        stmt.run(p.name, p.url, 0, p.updateInterval, p.text, p.showTime, p.scrolling, p.startTime, p.endTime, p.weekday, function() {
+            stmt.finalize(function () {
+                db.close();
+            });
+            callback();
+        });
     } else {
         callback();
     }

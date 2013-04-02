@@ -1,10 +1,9 @@
-var express = require('express')
-    , sqlite3 = require('sqlite3')
-    , routes = require('./routes')
-    , events = require('./events')
-    , db = require('./database');
+var express = require('express'),
+    app = module.exports = express(),
+    sqlite3 = require('sqlite3'),
+    routes = require('./routes'),
+    events = require('./events');
 
-var app = module.exports = express();
 var port = 3000;
 
 // Configuration
@@ -41,7 +40,7 @@ app.get('/foo', function(req, res) {
 });
 
 // Start dispatching events
-//events.start();
+events.start();
 
 app.listen(port, function(){
     console.log("server running on http://localhost:" + port);
