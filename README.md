@@ -12,9 +12,10 @@ The goal of this project is to provide:
 TODO
 ----
 
-* Update data from url on given interval
-  * Should maybe only be done when it is 'active'?
+* ~~Update data from url on given interval~~
+  * ~~Should maybe only be done when it is 'active'?~~
 * 'Active' text should also check on weekday
+* Fix bug in display.js
 
 Based on [express/bootstrap template][2]
 

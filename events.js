@@ -1,35 +1,29 @@
-var http = require('http');
-var display = require('./display');
-var util = require('./util');
-var database = require('./database');
+var http = require('http'),
+    async = require('async'),
+    display = require('./display'),
+    util = require('./util'),
+    database = require('./database');
 
 // seconds
-var interval = 5 * 1000;
+var interval = 4 * 1000;
 var urlInterval = 60;
 
 // makes sure to only update when text has changed
 var lastText = "";
 
-function updateText(text) {
+function updateDisplay(text) {
     if (text == lastText)
         return;
 
-    display.scroll("auto");
-    display.text(text, true);
+    // TODO fix bug here?
+    //display.scroll("auto");
+    //display.text(text, true);
+
     lastText = text;
+    console.log("New text: " + text);
 }
 
-function updateData(row) {
-    if (!row.url)
-        return;
-
-    var interval = row.updateInterval;
-    if (!interval || interval == 0)
-        interval = urlInterval;
-
-    if (row.updated + interval > util.getTime())
-        return;
-
+function updateData(db, row, callback) {
     http.get(row.url, function(res) {
         var data = "";
         res.on('data', function(chunk) {
@@ -39,26 +33,44 @@ function updateData(row) {
             var newline = data.indexOf('\n');
             if (newline > 0)
                 data = data.substr(0, newline);
-            database.updateText(row.id, data);
+
+            console.log("updated " + row.url);
+
+            db.run("UPDATE texts SET updated = ?, text = ? WHERE id = ?",
+                   util.getTime(), data, row.id, callback);
         });
     });
 }
 
 var dispatcher = function() {
-    var date = new Date();
-    var seconds = util.convertToSeconds(date.getHours(), date.getMinutes(), date.getSeconds());
+    var db = database.db();
 
-    database.getActiveTexts(seconds, function(err, rows) {
-        if (!rows) {
-            console.log("No data");
-            return;
+    async.parallel([
+        function (callback) {
+            db.all("SELECT * FROM texts_active", function(err, rows) {
+                var texts = rows.map(function(row) { return row.text; });
+                var formattedText = texts.join(" | ");
+
+                updateDisplay(formattedText);
+
+                callback();
+            });
+        },
+        function (callback) {
+            db.all("SELECT * FROM texts_outdated", function(err, rows) {
+                var updates = rows.map(function(row) {
+                    return function(innerCallback) {
+                        updateData(db, row, innerCallback);
+                    };
+                });
+
+                async.series(updates, function (err) {
+                    callback();
+                })
+            });
         }
-
-        var texts = rows.map(function (row) { return row.text; });
-        var formattedText = texts.join(" | ");
-        console.log("Active texts: " + texts.length);
-        updateText(formattedText);
-        rows.map(function (row) { updateData(row); });
+    ], function(err, result) {
+        db.close();
     });
 };
 
