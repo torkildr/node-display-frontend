@@ -64,7 +64,7 @@ var dispatcher = function() {
                     };
                 });
 
-                async.series(updates, function (err) {
+                async.parallelLimit(updates, 3, function (err) {
                     callback();
                 })
             });
