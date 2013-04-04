@@ -7,7 +7,6 @@ var write = function(command, data) {
     console.log("Command: \"" + command + "\"");
     if (data) {
         console.log("Data");
-        console.log(data);
     } else {
         data = "";
     }

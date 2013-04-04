@@ -16,8 +16,8 @@ function updateDisplay(text) {
         return;
 
     // TODO fix bug here?
-    //display.scroll("auto");
-    //display.text(text, true);
+    display.scroll("auto");
+    display.text(text, true);
 
     lastText = text;
     console.log("New text: " + text);
