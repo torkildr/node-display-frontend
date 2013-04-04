@@ -1,6 +1,7 @@
 var express = require('express'),
     app = module.exports = express(),
     sqlite3 = require('sqlite3'),
+    data = require('data-aggregator'),
     routes = require('./routes'),
     events = require('./events');
 
@@ -33,6 +34,10 @@ app.post('/submit', routes.submit);
 app.get('/edit/:id', routes.edit);
 app.post('/edit/:id', routes.edit);
 app.get('/delete/:id', routes.delete);
+
+// Data providers
+app.get('/data/yr', data.providers.yr);
+app.get('/data/yr/:id', data.providers.yr);
 
 // delete this
 app.get('/foo', function(req, res) {
