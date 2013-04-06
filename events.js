@@ -11,6 +11,8 @@ var urlInterval = 60;
 // makes sure to only update when text has changed
 var lastText = "";
 
+var serverPath = "";
+
 var commandQueue = async.queue(function(task, callback) {
     console.log('processing queue');
     callback();
@@ -30,7 +32,12 @@ function updateDisplay(text) {
 }
 
 function updateData(db, row, callback) {
-    http.get(row.url, function(res) {
+    var url = row.url;
+
+    if (url.indexOf('/') == 0)
+        url = serverPath + row.url;
+
+    http.get(url, function(res) {
         var data = "";
         res.on('data', function(chunk) {
             data += chunk;
@@ -89,10 +96,11 @@ var stop = function() {
     id = null;
 }
 
-var start = function() {
+var start = function(path) {
     stop();
 
     id = setInterval(dispatcher, interval);
+    serverPath = path;
 }
 
 exports.stop = stop;
