@@ -1,12 +1,12 @@
 var fs = require('fs');
 var iconv = new require('iconv').Iconv('utf-8', 'iso-8859-1');
 
-var fifo_file = "/tmp/matrix_display";
+var fifoFile = "/tmp/matrix_display";
 
 var write = function(command, data) {
-    console.log("Command: \"" + command + "\"");
+    console.log("command: \"" + command + "\"");
     if (data) {
-        console.log("Data");
+        console.log("data sent");
     } else {
         data = "";
     }
@@ -14,12 +14,10 @@ var write = function(command, data) {
     // our display expects stuff to be iso-8859-1
     var payload = iconv.convert(command + ":" + data);
 
-    fs.appendFile(fifo_file, payload, function (err) {
+    fs.appendFile(fifoFile, payload, function (err) {
         if (err)
             console.log("Error while writing to display: " + err);
     });
-
-    console.log("End command");
 };
 
 exports.scroll = function(mode) {

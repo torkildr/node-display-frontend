@@ -11,13 +11,19 @@ var urlInterval = 60;
 // makes sure to only update when text has changed
 var lastText = "";
 
+var commandQueue = async.queue(function(task, callback) {
+    console.log('processing queue');
+    callback();
+}, 1);
+
 function updateDisplay(text) {
     if (text == lastText)
         return;
 
-    // TODO fix bug here?
-    display.scroll("auto");
-    display.text(text, true);
+    commandQueue.push({}, function() {
+        display.scroll("auto");
+        display.text(text, true);
+    });
 
     lastText = text;
     console.log("New text: " + text);

@@ -17,7 +17,7 @@ CREATE TABLE texts (
 -- seconds of the day
 CREATE VIEW seconds
 AS
-SELECT (strftime("%H")*60*60) + (strftime("%M")*60) + strftime("%S") AS seconds;
+SELECT (strftime("%H", 'now', 'localtime')*60*60) + (strftime("%M", 'now', 'localtime')*60) + strftime("%S", 'now', 'localtime') AS seconds;
 
 -- lists active texts
 CREATE VIEW texts_active
@@ -56,8 +56,8 @@ INSERT INTO texts (name, text, showTime, scrolling, startTime, endTime, weekday)
 VALUES ('Night time', 'all night long', 1, 'auto', (22*60*60)+(0*60)+0,(07*60*60)+(59*60)+59, (1<<7)-1);
 
 INSERT INTO texts (name, text, url, updated, updateInterval, showTime, scrolling, startTime, endTime, weekday)
-VALUES ('Update from URL', 'not updated', 'http://localhost:3000/foo', 0, 16, 1, 'auto', (0*60*60)+(0*60)+0,(23*60*60)+(59*60)+59, (1<<7)-1);
+VALUES ('Update from URL', 'not updated', '/foo', 0, 16, 1, 'auto', (0*60*60)+(0*60)+0,(23*60*60)+(59*60)+59, (1<<7)-1);
 
 INSERT INTO texts (name, text, url, updated, updateInterval, showTime, scrolling, startTime, endTime, weekday)
-VALUES ('Weather data', 'not updated', 'http://localhost:3000/data/yr', 0, 10*30, 1, 'auto', (0*60*60)+(0*60)+0,(23*60*60)+(59*60)+59, (1<<7)-1);
+VALUES ('Weather data', 'not updated', 'http://localhost:3000/data/foo', 0, 30 * 60, 1, 'auto', (0*60*60)+(0*60)+0,(23*60*60)+(59*60)+59, (1<<7)-1);
 

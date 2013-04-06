@@ -10,20 +10,26 @@ function getDb() {
     return db;
 };
 
-exports.db = getDb;
+// not fully sync, but sync enough that every db-call at this point forward
+// will have the correct state
+function checkDbSync(file) {
+    var exists = fs.existsSync(dbFile);
 
-fs.exists(dbFile, function (exists) {
     if (!exists) {
         var db = getDb();
         console.info('creating ' + dbFile);
-        fs.readFile(sqlFile, 'utf8', function (err, data) {
+
+        var data = fs.readFileSync(sqlFile, 'utf8');
+
+        db.exec(data, function (err) {
             if (err) throw err;
-            db.exec(data, function (err) {
-                if (err) throw err;
-                console.info('done');
-                db.close();
-            });
+            console.info('db initialized');
+            db.close();
         });
     }
-});
+}
+
+checkDbSync(dbFile);
+
+exports.db = getDb;
 
