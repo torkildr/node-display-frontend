@@ -26,7 +26,7 @@ SELECT t.*
 FROM texts t
 LEFT JOIN seconds s
 WHERE (t.startTime < t.endTime AND t.startTime <= s.seconds AND t.endTime >= s.seconds) OR
-      (t.startTime > t.endTime AND t.startTime >= s.seconds AND t.endTime >= s.seconds)
+      (t.startTime > t.endTime AND t.startTime <= s.seconds AND t.endTime <= s.seconds)
 ORDER BY t.startTime ASC,
   t.endTime ASC,
   t.name ASC;
@@ -54,9 +54,6 @@ VALUES ('Evening', 'evening', 1, 'auto', (17*60*60)+(0*60)+0,(22*60*60)+(59*60)+
 
 INSERT INTO texts (name, text, showTime, scrolling, startTime, endTime, weekday)
 VALUES ('Night time', 'all night long', 1, 'auto', (22*60*60)+(0*60)+0,(07*60*60)+(59*60)+59, (1<<7)-1);
-
-INSERT INTO texts (name, text, url, updated, updateInterval, showTime, scrolling, startTime, endTime, weekday)
-VALUES ('Update from URL', 'not updated', '/foo', 0, 16, 1, 'auto', (0*60*60)+(0*60)+0,(23*60*60)+(59*60)+59, (1<<7)-1);
 
 INSERT INTO texts (name, text, url, updated, updateInterval, showTime, scrolling, startTime, endTime, weekday)
 VALUES ('Weather data', 'not updated', '/data/foo', 0, 30 * 60, 1, 'auto', (0*60*60)+(0*60)+0,(23*60*60)+(59*60)+59, (1<<7)-1);
