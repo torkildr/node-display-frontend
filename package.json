@@ -17,7 +17,8 @@
     "jade": ">= 0.28.2",
     "iconv": ">= 2.0.4",
     "sqlite3": ">= 2.1.7",
-    "async": ">= 0.2.6"
+    "async": ">= 0.2.6",
+    "data-aggregator": "git://github.com/torkildr/node-data-aggregator.git"
   },
   "license": "MIT",
   "devDependencies": {
