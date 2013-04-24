@@ -2,7 +2,7 @@ var fs = require('fs'),
     sqlite3 = require('sqlite3').verbose(),
     util = require('./util');
 
-var dbFile = 'display.db';
+var dbFile = 'display.sqlite3';
 var sqlFile = 'display.sql';
 
 function getDb() {
